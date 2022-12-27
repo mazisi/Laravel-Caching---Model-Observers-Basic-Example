@@ -16,9 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     $minutes = 300;
+//     //Cache::forget('users');
+//     $users = Cache::remember('users', $minutes, function () {
+//         return User::get();
+//     });
+
+//     return view('welcome', ['users' => $users]);
+// });
+
+Route::middleware('throttle:users')->get('/', function () {
     $minutes = 300;
-    //Cache::forget('users');
     $users = Cache::remember('users', $minutes, function () {
         return User::get();
     });
